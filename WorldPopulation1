@@ -1,0 +1,38 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+
+public class WorldPopulation1 {
+    private String sehir;
+    private String adres1;
+    private String mekan;
+
+    public String getSehir() {
+        return sehir;
+    }
+    public void setSehir(String sehir) {
+        this.sehir = sehir;
+    }
+
+    public String getAdres1() {
+        return adres1;
+    }
+    public void setAdres1(String adres1) {
+        this.adres1 = adres1;
+    }
+
+    public String getMekan() {
+        return mekan;
+    }
+
+    public void setMekan(String mekan) {
+        this.mekan = mekan;
+    }
+
+
+
+}
