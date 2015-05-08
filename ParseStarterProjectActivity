@@ -1,0 +1,79 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+
+public class ParseStarterProjectActivity extends Activity {
+
+    EditText e1;
+    EditText e2;
+    EditText e3;
+    Button kaydet;
+
+
+    /** Called when the activity is first created. */
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.main);
+        Parse.initialize(this, "hMVeEXNL6yAMHxWmHjEGcmgaEvxxRPpPaasmtRUv", "LDpJeFg2ZoJsXFJjM00zGmhdwxPi0McvQG5NNvoR");
+        e1=(EditText)findViewById(R.id.sehir);
+        e2=(EditText)findViewById(R.id.photo);
+        e3=(EditText)findViewById(R.id.adres);
+        kaydet=(Button)findViewById(R.id.kaydet);}
+    public void saveToCloud(View v)
+    {
+        final String sehir=e1.getText().toString();
+        String photo=e2.getText().toString();
+        String adres=e3.getText().toString();
+
+        ParseObject sc =new ParseObject("sehir");
+        sc.put("sehir", sehir);
+        sc.put("photo", photo);
+        sc.put("adres", adres);
+
+        sc.saveInBackground();
+        Toast.makeText(this, "Your data will be saved in background",Toast.LENGTH_LONG).show();
+
+        ParseObject myPost = new ParseObject("Post");
+        myPost.put("title", "I'm Hungry");
+        myPost.put("content", "Where should we go for lunch?");
+        // Create the comment
+        ParseObject myComment = new ParseObject("Comment");
+        myComment.put("content", "Let's do Sushirrito.");
+
+// Add a relation between the Post and Comment
+        myComment.put("parent", myPost);
+
+// This will save both myPost and myComment
+        myComment.saveInBackground();
+
+
+        kaydet.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
+
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+	}
+}
