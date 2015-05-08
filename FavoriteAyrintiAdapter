@@ -1,0 +1,49 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
+
+import java.util.Arrays;
+
+
+public class FavoriteAyrintiAdapter extends ParseQueryAdapter<Ayrinti> {
+
+    public FavoriteAyrintiAdapter(Context context) {
+        super(context, new ParseQueryAdapter.QueryFactory<Ayrinti>() {
+            public ParseQuery<Ayrinti> create() {
+                // Here we can configure a ParseQuery to display
+                // only top-rated meals.
+                ParseQuery query = new ParseQuery("ayrinti");
+
+                return query;
+            }
+        });
+    }
+
+    @Override
+    public View getItemView(Ayrinti ayrinti, View v, ViewGroup parent) {
+
+        if (v == null) {
+            v = View.inflate(getContext(), R.layout.activity_favorite_ayrinti_adapter, null);
+        }
+
+        super.getItemView(ayrinti, v, parent);
+
+
+        return v;
+    }
+
+}
