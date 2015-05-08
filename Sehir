@@ -1,0 +1,58 @@
+package com.parse.starter;
+
+import android.app.Activity;
+
+import com.parse.ParseClassName;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+@ParseClassName("sehir")
+public class Sehir extends ParseObject{
+
+    public String getSehir() {
+        return getString("sehir");
+    }
+
+    public void setSehir(String sehir) {
+        put("sehir", sehir);
+    }
+
+   // public ParseUser getAuthor() { return getParseUser("author");}
+
+    //public void setAuthor(ParseUser user) { put("author", user);}
+
+    public String getRating() {
+        return getString("rating");
+    }
+
+    public void setRating(String rating) {
+        put("rating", rating);
+    }
+    public String getRank() {
+        return getString("rank");
+    }
+
+    public void setRank(String rank) {
+        put("rank", rank);
+    }
+
+    public ParseFile getPhotoFile() {
+        return getParseFile("photo");
+    }
+
+    public void setPhotoFile(ParseFile file) {
+        put("photo", file);
+    }
+    public String getAdres() {
+        return getString("adres");
+    }
+
+    public void setAdres(String adres) {
+        put("adres",adres);
+    }
+
+
+
+
+}
