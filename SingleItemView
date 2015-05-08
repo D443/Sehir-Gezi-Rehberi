@@ -1,0 +1,163 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+public class SingleItemView extends Activity {
+    // Declare Variables
+    String mekan;
+    String adres1;
+    String sehir;
+    String position;
+    ListView listview1;
+    List<ParseObject> ob;
+    ProgressDialog mProgressDialog;
+    ListViewAdapter1 adapter;
+    EditText editsearch;
+    private List<WorldPopulation1> worldpopulationlist1 = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Get the view from singleitemview.xml
+        setContentView(R.layout.activity_single_item_view);
+        Intent i = getIntent();
+        // Get the result of rank
+        sehir = i.getStringExtra("sehir");
+
+        new RemoteDataTask().execute();}
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Create the array
+            worldpopulationlist1 = new ArrayList<WorldPopulation1>();
+            try {
+                // Locate the class table named "Country" in Parse.com
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                        "ayrinti");
+                // Locate the column named "ranknum" in Parse.com and order list
+                // by ascending
+                query.whereEqualTo("sehir",sehir);
+                query.orderByAscending("mekan");
+                ob = query.find();
+
+                for (ParseObject ayrinti : ob) {
+                    // Locate images in flag column
+
+
+                    WorldPopulation1 map = new WorldPopulation1();
+                    map.setSehir((String) ayrinti.get("sehir"));
+                    map.setAdres1((String) ayrinti.get("adres1"));
+                    map.setMekan((String) ayrinti.get("mekan"));
+
+
+
+                    // if(!worldpopulationlist.contains(sehir.get("sehir")))
+                    // worldpopulationlist.add(map);
+
+                    worldpopulationlist1.add(map);
+                }
+            } catch (ParseException e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(SingleItemView.this);
+            // Set progressdialog title
+            mProgressDialog.setTitle("Parse.com Custom ListView Tutorial");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            // Locate the listview in listview_main.xml
+            listview1 = (ListView) findViewById(R.id.listview1);
+            // Pass the results into ListViewAdapter.java
+            adapter = new ListViewAdapter1(SingleItemView.this,
+                    worldpopulationlist1);
+            // Binds the Adapter to the ListView
+            listview1.setAdapter(adapter);
+            // Close the progressdialog
+
+            mProgressDialog.dismiss();
+            editsearch = (EditText) findViewById(R.id.search);
+
+            // Capture Text in EditText
+            editsearch.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void afterTextChanged(Editable arg0) {
+                    // TODO Auto-generated method stub
+                    String text = editsearch.getText().toString()
+                            .toLowerCase(Locale.getDefault());
+                    adapter.filter(text);
+
+
+                }
+                @Override
+                public void beforeTextChanged(CharSequence arg0, int arg1,
+                                              int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void onTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                }
+            });
+        }
+    }}
+
+
+        //Intent i = getIntent();
+        // Get the result of rank
+        //mekan = i.getStringExtra("mekan");
+        // Get the result of country
+       // adres1 = i.getStringExtra("adres1");
+        // Get the result of population
+
+
+        // Locate the TextViews in singleitemview.xml
+        //TextView txtmekan = (TextView) findViewById(R.id.mekan);
+        //TextView txtadres1 = (TextView) findViewById(R.id.adres1);
+
+
+        // Locate the ImageView in singleitemview.xml
+
+
+        // Set results to the TextViews
+        //txtmekan.setText(mekan);
+        //txtadres1.setText(adres1);
+
+
+        // Capture position and set results to the ImageView
+        // Passes flag images URL into ImageLoader.class
+
