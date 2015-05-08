@@ -1,0 +1,45 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+    public class WorldPopulation {
+        private String rank;
+        private String sehir;
+        private String adres;
+        private String photo;
+
+
+        public String getRank() {
+            return rank;
+        }
+
+        public void setRank(String rank) {
+            this.rank = rank;
+        }
+
+        public String getSehir() {
+            return sehir;
+        }
+
+        public void setSehir(String sehir) {
+            this.sehir = sehir;
+        }
+
+        public String getAdres() {
+            return adres;
+        }
+
+        public void setAdres(String adres) {
+            this.adres = adres;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+    }
