@@ -1,0 +1,46 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.parse.ParseFile;
+
+
+public class NewSehirActivity extends Activity {
+    private Sehir sehir;
+    private Ayrinti ayrinti;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+       sehir = new Sehir();
+        ayrinti=new Ayrinti();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
+
+        // Begin with main data entry view,
+        // NewMealFragment
+        setContentView(R.layout.activity_new_sehir);
+        FragmentManager manager = getFragmentManager();
+        Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);
+
+        if (fragment == null) {
+            fragment = new NewSehirFragment();
+            manager.beginTransaction().add(R.id.fragmentContainer, fragment)
+                    .commit();
+        }
+    }
+
+    public Sehir getCurrentSehir() {
+        return sehir;
+    }
+
+
+    public Ayrinti getCurrentAyrinti() {return ayrinti;
+
+    }
+}
