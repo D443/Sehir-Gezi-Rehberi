@@ -1,1 +1,0 @@
-# Sehir-Gezi-Rehberiojkporejpojrepreprejprejeprj
